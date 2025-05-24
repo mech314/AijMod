@@ -1,0 +1,20 @@
+language: minimal
+if: tag IS present
+services:
+- docker
+before_install:
+- docker pull shamtam/merpmod
+script:
+- docker run --rm -v "$PWD":/data/MerpMod -w /data/MerpMod/MerpMod shamtam/merpmod:latest
+  /bin/bash -c 'while read t; do make TARGETROM=$t all; done < build_targets'
+deploy:
+  provider: releases
+  token:
+    secure: "NISLo5b1F51sMaGDp8e6QJAcDmBhb8rTVKWXR1/SgK0OnBWUvaS4tko/Falz1ovGju2x7D10zWeWH5TDRd+wBFzR6XbA6VOmw1bZYOduSaDlRAxDBP2pSQGIyWVIhAQsX8tz/bz8qEqinFrPcYjkhEo41moxhS3drlr7MP6qJ6FPluvZQZgWbCdQPz/Hr8tzmrOrHyXGvtL8KWksra+F8Hm/HuuPXLauVRvF3kO9klu3riM9j0bOrcEzAP4bIZoqwUm6u01pG1o5VtC3yxCF+/J0v2hyNZQ7pw14b6pqfEmHZJBk+xOm4c/DZA5AdtXOBZX9iUcOqNHhGCqS8pmOqK0/8tf6pIuc8MSuEVkbMsNqFrWI1e37QFRlSLpC3JV2UIvCY/NdQPJ+1jT8EBiAYtzY4qx4IXSztTdwrG454glmJhJxIy5XYJzzWS+HGkNg1eKMVk3sTRoEkD0Cdy+QQfUI5r4iT9lPXZykDDPU+uyjUuAyB0oVCbo3ht9tMlssyZf/3DJ62AhRw74ugattiZxm9oPXQ7KL2viEMqJ2orR6iNNh6Ux7mPcrQh/7MZVRw79fACvwXxU4qFdYwJuUvbqpymc6T0bRbVP3MvwMRz1aE47rqdzEeKbuAfcghUYT3WiSMRkmREtIGHY3puPaDHQohaNpAH7qE4xl4Gxo3X8="
+  file: "./MerpMod/build/**/*.mot"
+  overwrite: true
+  edge: true
+  on:
+    repo: Shamtam/MerpMod
+    branches: aijmod
+    tags: true
