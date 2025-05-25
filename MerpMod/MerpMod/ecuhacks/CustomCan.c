@@ -194,10 +194,6 @@ void sendCanMessage(unsigned char ccm)
 	unsigned char* ptrMB;	
 	unsigned short tmp;
 
-	//char cgear = pCurrentGear;
-	//pRamVariables.m420_b1 = cgear * 0x10;
-
-	//pRamVariables.m421_b3 = counter(pRamVariables.counterVar);
 
 	CanMessageSetupStruct *ccmGroup = (CanMessageSetupStruct *)(&ccm00);
 	ptrMB = (unsigned char*)(0xFFFFD100 + 0x800*(ccmGroup[ccm].bus&0x01) + 0x20*(ccmGroup[ccm].mailBox&0x1f) + 0x04);			
